@@ -5,7 +5,7 @@
           <div v-for="(item,index) in meuns" :key="index">
               <template v-if="!item.hidden">
               <!-- 一级菜单的情况 -->
-                  {{item.children[0].path}}
+                 <!-- {{item.children[0].path}}-->
               <template v-if="item.children&&item.children.length===1">
                  <!-- {{item.children[0].path}}-->
                   <router-link :to="item.children[0].path">
@@ -74,7 +74,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style scoped lang="less">
     .app_wapper {
         position: relative;
         height: 100%;
@@ -106,5 +106,17 @@ export default {
         left: 0;
         z-index: 1001;
         background-color: rgb(48, 65, 86);
+    }
+    ::v-deep .is-opened {
+
+        .el-submenu__title{
+            background-color: rgba(0, 0, 0, 0.2) !important;
+        }
+        .el-menu{
+            background-color: rgba(0, 0, 0, 0.2) !important;
+        }
+        .el-menu-item{
+            background-color: rgba(0, 0, 0, 0.2) !important;
+        }
     }
 </style>

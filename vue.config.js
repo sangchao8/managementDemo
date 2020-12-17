@@ -1,7 +1,8 @@
+const path = require('path');
 module.exports = {
    /* assetsDir:'assets',
     lintOnSave:false,*/
-    devServer: {
+  /*  devServer: {
         open: true,
         host: 'localhost',
         port: 8080,
@@ -19,7 +20,7 @@ module.exports = {
                 // target:'http://23.20.4.55:8887',
                 // target: 'http://172.16.7.65:9200',
                 // target: 'http://172.25.10.4:9200', //东部机场生产环境
-                /* target: 'http://127.0.0.1:9200',*/
+                /!* target: 'http://127.0.0.1:9200',*!/
                 //target: 'http://223.112.8.106:9201',//测试
                 target: 'http://srh.natapp1.cc',//史瑞豪
                 changeOrigin: true,
@@ -28,13 +29,13 @@ module.exports = {
                 }
             }
         },
-        /**
+        /!**
          * Source Maps
-         */
-     /*   devtool: "cheap-module-eval-source-map",
+         *!/
+     /!*   devtool: "cheap-module-eval-source-map",
         cacheBusting: true,
-        cssSourceMap: true*/
-    },
+        cssSourceMap: true*!/
+    },*/
     // 打包时不生成.map文件 避免看到源码
     productionSourceMap: false,
    /* configureWebpack: {
@@ -57,13 +58,14 @@ module.exports = {
         ]
     },*/
     //插件配置
- /*   pluginOptions: {
+    pluginOptions: {
         //less预处理器
         'style-resources-loader': {
             preProcessor: 'less',
             patterns: [
-                path.resolve(__dirname, './src/styles/variable.less')
+                path.resolve(__dirname, './src/common/css/common.less')
             ]
         }
-    },*/
+    }
+
 }
