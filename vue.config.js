@@ -2,7 +2,7 @@ const path = require('path');
 module.exports = {
    /* assetsDir:'assets',
     lintOnSave:false,*/
-  /*  devServer: {
+    /*devServer: {
         open: true,
         host: 'localhost',
         port: 8080,
