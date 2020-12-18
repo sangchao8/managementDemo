@@ -47,7 +47,7 @@
                                 meta: {
                                     title: '一级1', //菜单名称
                                     roles: ['user', 'admin'], //当前菜单哪些角色可以看到
-                                    icon: 'el-icon-star-on' //菜单左侧的icon图标
+                                    icon: 'iconfont icon-shangjiantou' //菜单左侧的icon图标
                                 },
                                 children: [
                                     {
@@ -138,6 +138,7 @@
     color: #fff;
     font-weight:bolder;
     padding: 0 1vw;
+    box-shadow: 0px 0px 20px #00000047;
 }
 .cont{
     display: flex;
@@ -163,11 +164,11 @@
         right: 0.5vw;
         background-color: rgb(106,123,137);
         border-radius: 50%;
-        box-shadow: 0px 0px 20px #00000047;
+        box-shadow: 0px 0px 20px 1px #00000047;
     }
     .arrowup{
-        top:2vh;
-        right:-1.8vw;
+        top: 0.2vh;
+        right: 0.5vw;
     }
 }
 .up{
@@ -181,9 +182,11 @@
     ::v-deep .el-menu-item{
         padding-left: 5px!important;
     }
+    transition:width .08s ease-in;
 }
 .down{
     width: 200px;
+    transition:width .08s ease-in;
 }
 .rightSide{
     width: calc(100% - 200px);

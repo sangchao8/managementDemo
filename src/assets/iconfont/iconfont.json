@@ -1,0 +1,30 @@
+{
+  "id": "2277212",
+  "name": "stop-information-mannegement",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4175512",
+      "name": "上箭头",
+      "font_class": "shangjiantou",
+      "unicode": "eb6d",
+      "unicode_decimal": 60269
+    },
+    {
+      "icon_id": "14835600",
+      "name": "上箭头",
+      "font_class": "arrowTop-fill",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "14835602",
+      "name": "上箭头",
+      "font_class": "arrowTop",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    }
+  ]
+}

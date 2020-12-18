@@ -24,6 +24,7 @@ export const fixedRouter  = [
   {
     path: "/",
     name: 'Login',
+  /*  redirect: '/Login',*/
     component: Login
   },
   {
@@ -155,7 +156,21 @@ export const fixedRouter  = [
 }]*/
 
 const router = new VueRouter({
-  routes:fixedRouter
+  routes:fixedRouter,
+    scrollBehavior (to, from, savedPosition) {
+        console.log('to: ', to)
+        console.log('from: ', from)
+        if (savedPosition) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('savedPosition', savedPosition)
+                    resolve(savedPosition)
+                }, 500)
+            })
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
 })
 
 export default router
