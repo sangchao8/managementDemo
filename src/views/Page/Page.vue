@@ -191,5 +191,16 @@
 .rightSide{
     width: calc(100% - 200px);
     height: 93vh;
+    background-color: #dfdfdf;
+    padding: 2vh 1vw;
+    box-sizing: border-box;
+    .icon-shangjiantou{
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 24px;
+        text-align: center;
+        font-size: 18px;
+        display: inline-block;
+    }
 }
 </style>

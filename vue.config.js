@@ -4,7 +4,7 @@ module.exports = {
     lintOnSave:false,*/
     devServer: {
         open: true,
-        host: 'localhost',
+      /*  host: 'localhost',
         port: 8080,
         proxy: {
             "/": {
@@ -20,7 +20,7 @@ module.exports = {
                 // target:'http://23.20.4.55:8887',
                 // target: 'http://172.16.7.65:9200',
                 // target: 'http://172.25.10.4:9200', //东部机场生产环境
-                /* target: 'http://127.0.0.1:9200',*/
+                /!* target: 'http://127.0.0.1:9200',*!/
                 //target: 'http://223.112.8.106:9201',//测试
                 target: 'http://srh.natapp1.cc',//史瑞豪
                 changeOrigin: true,
@@ -28,7 +28,7 @@ module.exports = {
                     "^/": ""
                 }
             }
-        },
+        },*/
         /**
          * Source Maps
          */
