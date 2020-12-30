@@ -17,17 +17,29 @@ const commonApi = {
   formatJson (filterVal, jsonData) {
     return jsonData.map(v => filterVal.map(j => v[j]))
   },
-  formatTime(value){
+    formatTime(value){
         let date = new Date(value);   //转成标准时间，
         //才能 getFullYear()、getMonth() 、getDate()
         let y = date.getFullYear();
         let MM = date.getMonth() + 1;
         MM = MM < 10 ? ('0' + MM) : MM;
         let d = date.getDate();   d = d < 10 ? ('0' + d) : d;
-      /*  let h = date.getHours();   h = h < 10 ? ('0' + h) : h;
-        let m = date.getMinutes();  m = m < 10 ? ('0' + m) : m;
-        let s = date.getSeconds();   s = s < 10 ? ('0' + s) : s;*/
+        /*  let h = date.getHours();   h = h < 10 ? ('0' + h) : h;
+          let m = date.getMinutes();  m = m < 10 ? ('0' + m) : m;
+          let s = date.getSeconds();   s = s < 10 ? ('0' + s) : s;*/
         return y + '-' + MM + '-' + d/* + ' ' + h + ':' + m + ':' + s*/;
+    },
+    formatTimesfm(value){
+        let date = new Date(value);   //转成标准时间，
+        //才能 getFullYear()、getMonth() 、getDate()
+        let y = date.getFullYear();
+        let MM = date.getMonth() + 1;
+        MM = MM < 10 ? ('0' + MM) : MM;
+        let d = date.getDate();   d = d < 10 ? ('0' + d) : d;
+        let h = date.getHours();   h = h < 10 ? ('0' + h) : h;
+        let m = date.getMinutes();  m = m < 10 ? ('0' + m) : m;
+        let s = date.getSeconds();   s = s < 10 ? ('0' + s) : s;
+        return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
     },
 
   // 获取周几

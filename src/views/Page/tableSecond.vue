@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: #fff;">
     <div class="top-col">
       <!--表单-->
       <!--注意 <el-form> :inline="true" -->
@@ -14,16 +14,17 @@
             <el-option label="正常" value="1"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item  size="small" label="选择日期" >
+        <el-form-item  size="small" label="违法时间" >
           <el-date-picker
-                  format="dd-MM-yyyy"
-                  value-format="yyyy-MM-dd"
+                  style="width:26vw"
                   clearable
                   v-model="filler.time"
-                  type="daterange"
+                  type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
-                  end-placeholder="结束日期">
+                  end-placeholder="结束日期"
+                  :default-time="['00:00:00', '23:59:59']"
+          >
           </el-date-picker>
         </el-form-item>
         <el-form-item style="margin-left:5vw" >
@@ -104,6 +105,7 @@
           >
             <template slot-scope="{$index, row}">
               <span class="actions" @click="handleXx($index, row)">查看详情</span>
+              <span class="actions" @click="edithandle($index, row)">编辑</span>
             </template>
           </el-table-column>
         </el-table>
@@ -121,6 +123,29 @@
       </el-pagination>
 
     </div>
+    <el-dialog :title="title" :close-on-click-modal='closeModal' :visible.sync="dialogFormVisible" width="50%">
+      <p>文件上传</p>
+      <!--上传文件-->
+      <div style="display: flex;">
+        <div style="width:7vw;text-indent: 1vw;color: #A8B7CC;text-align: right;padding-right: 10px">附件上传：</div>
+        <el-upload
+                ref="upload"
+                class="upload-demo"
+                drag
+                :headers="headers"
+                action="/xboot/upload/v4/file"
+                :on-success="handleSuccess"
+                :limit=1
+                method:="post"
+                :on-preview="handlePreview"
+                accept='.doc,.docx,.pdf,.jpg'
+                :file-list="file.fj">
+          <div class="el-upload__text"><em>添加附件</em></div>
+        </el-upload>
+      </div>
+      <div class="uploadtip atag"> 支持1个文件上传，扩展名：doc .docx .pdf .jpg文件，且不超过500kb</div>
+
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -133,7 +158,8 @@ export default {
       filler:{
         keyword:'',
         dataStatus:"",
-        time:'',
+        time: [new Date(new Date().toLocaleDateString()).getTime(),
+          new Date(new Date().toLocaleDateString()).getTime() + ((24 * 60 * 60 * 1000) - 1)],
         startTime:'',
         endTime:'',
         pageNo:1,//当前页
@@ -170,8 +196,20 @@ export default {
           dataStatus: '1',
         },
       ],
+      title:'',
+      closeModal: true,
+      dialogFormVisible:false,
+      file: {
+        fj:"",
+        fileId:''
+      }
     }
 
+  },
+  created(){
+    /*增加请求头*/
+    let obj = {"accessToken":window.sessionStorage.getItem('token')};
+    this.headers = obj;
   },
   mounted() {
     //初始化日期当天
@@ -242,11 +280,8 @@ export default {
      /* if(this.filler.time){
         this.filler.startTime=this.$api.commenApi.formatTime(this.filler.time[0])
         this.filler.endTime=this.$api.commenApi.formatTime(this.filler.time[1])
-      }else{
-        this.filler.startTime=this.day
-        this.filler.endTime=this.day
-      }
-      this.getException()*/
+      }*/
+     /* this.getException()*//* this.getException()*/
     },
     reserve(){
    /*   this.filler={
@@ -261,6 +296,10 @@ export default {
       }
       this.getException()*/
     },
+
+    /*
+    * 表单操作
+    * */
     //详情
     handleXx(index, row){
     /*  //console.log(row)
@@ -275,10 +314,18 @@ export default {
       })
       this.xqDialogVisible=true*/
     },
-    //关闭窗口
-    closeDialog(){
-    /*  this.xqDialogVisible=false*/
-    }
+    //编辑
+    edithandle(index, row){
+      this.dialogFormVisible=true
+      this.title='编辑'
+    },
+    /*
+    * 文件上传
+    * */
+    handleSuccess (response, file, fileList) {
+      this.fil.fileId=response.result.file.id
+      // 上传成功要处理的事
+    },
   },
 }
 
@@ -312,5 +359,10 @@ export default {
     position: absolute;
     bottom: 2.5vh;
     right: 1vw;
+  }
+  .actions{
+    margin: 0 5px;
+    color: #2D64AB;
+    cursor: pointer;
   }
 </style>

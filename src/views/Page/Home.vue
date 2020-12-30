@@ -8,8 +8,7 @@
 </template>
 
 <script>
-  import jsJson from '@/assets/json/jiangsu.json';
-/*  import 'echarts/map/js/province/jiangsu'*/
+  import jsJson from '../../assets/json/jiangsu.json';
   import echarts from 'echarts';
 
   export default {
@@ -47,12 +46,12 @@
       }
     },
     mounted() {
-      /*this.JsMap();*/
+     /* this.JsMap();*/
       this.GallLoad();
 
     },
     methods: {
-     /* JsMap() {
+      JsMap() {
         this.$echarts.registerMap('jiangsu', jsJson)
         var myChart = echarts.init(document.getElementById('map'));
         var option = {
@@ -279,7 +278,7 @@
             myChart.resize();
           });
         })
-      },*/
+      },
       GallLoad() {
         var that=this
         var data=this.echGalldata;
@@ -492,7 +491,6 @@
       }
 
     },
-
     watch:{
       echGalldata:{
         handler(newval,oldval){

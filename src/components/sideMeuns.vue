@@ -119,4 +119,12 @@ export default {
             background-color: rgba(0, 0, 0, 0.2) !important;
         }
     }
+    .icon-shangjiantou{
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 24px;
+        text-align: center;
+        font-size: 18px;
+        display: inline-block;
+    }
 </style>
