@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #fff;">
+  <div style="background-color: #fff;position: relative">
     <div class="top-col">
       <!--表单-->
       <!--注意 <el-form> :inline="true" -->
@@ -137,7 +137,7 @@
                 :on-success="handleSuccess"
                 :limit=1
                 method:="post"
-                :on-preview="handlePreview"
+
                 accept='.doc,.docx,.pdf,.jpg'
                 :file-list="file.fj">
           <div class="el-upload__text"><em>添加附件</em></div>
@@ -146,11 +146,14 @@
       <div class="uploadtip atag"> 支持1个文件上传，扩展名：doc .docx .pdf .jpg文件，且不超过500kb</div>
 
     </el-dialog>
+<!--svga-->
+    <div id="demoCanvas" class="svga" ref="canvas"></div>
+
   </div>
 </template>
 <script>
 import commonApi from "../../request/api/common";
-
+import SVGA from "svgaplayerweb";//svga引入
 export default {
   data() {
     return {
@@ -218,7 +221,14 @@ export default {
     this.day=day2
     this.filler.startTime=day2
     this.filler.endTime=day2*/
-    this.getException()
+   /* this.getException()*/
+    /*svga调用代码*/
+    var player = new SVGA.Player("#demoCanvas");
+    var parser = new SVGA.Parser("#demoCanvas");
+    parser.load("img/1.svga", function(videoItem) {
+      player.setVideoItem(videoItem);
+      player.startAnimation();
+    });
   },
   methods: {
     //字段字典码
@@ -364,5 +374,11 @@ export default {
     margin: 0 5px;
     color: #2D64AB;
     cursor: pointer;
+  }
+  .svga {
+    width: 46px;
+    height: 72px;
+    position: absolute;
+    bottom: 0;
   }
 </style>
