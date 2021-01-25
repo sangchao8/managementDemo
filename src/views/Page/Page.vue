@@ -126,10 +126,6 @@
                                 path: '/page/zdmStyle',
                                 meta: { "title": "样式字典码", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
                             },
-                            {
-                                path: '/page/threeJs',
-                                meta: { "title": "threeJs", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
-                            },
                         ]
 
                     }

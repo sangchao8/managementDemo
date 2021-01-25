@@ -17,7 +17,6 @@ const First21= () => import('@/views/Page/tableFirst2-1')
 const First22= () => import('@/views/Page/tableFirst2-2')
 const baiduMap= () => import('@/views/Page/baiduMap')
 const zdmStyle= () => import('@/views/Page/zdmStyle')
-const threeJs= () => import('@/views/Page/threeJs')
 
 
 
@@ -116,15 +115,6 @@ export const fixedRouter  = [
         component: zdmStyle,
         meta: {
           title: '字典码样式', //菜单名称
-          roles: ['user', 'admin'], //当前菜单哪些角色可以看到
-          icon: 'el-icon-star-on' //菜单左侧的icon图标
-        },
-      },
-      {
-        path: '/page/threeJs',
-        component: threeJs,
-        meta: {
-          title: 'threeJs', //菜单名称
           roles: ['user', 'admin'], //当前菜单哪些角色可以看到
           icon: 'el-icon-star-on' //菜单左侧的icon图标
         },
