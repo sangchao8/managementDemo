@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 // 登录页
 const Login = () => import('@/views/Login')
+const html = () => import('@/views/html')
 //菜单页
 const Page = () => import('@/views/Page/Page')
 //首页
@@ -14,6 +15,9 @@ const Second = () => import('@/views/Page/tableSecond')
 const Second2 = () => import('@/views/Page/tableSecond2')
 const First21= () => import('@/views/Page/tableFirst2-1')
 const First22= () => import('@/views/Page/tableFirst2-2')
+const baiduMap= () => import('@/views/Page/baiduMap')
+const zdmStyle= () => import('@/views/Page/zdmStyle')
+const threeJs= () => import('@/views/Page/threeJs')
 
 
 
@@ -26,6 +30,12 @@ export const fixedRouter  = [
     name: 'Login',
   /*  redirect: '/Login',*/
     component: Login
+  },
+  {
+    path: "/html",
+    name: 'html',
+    /*  redirect: '/Login',*/
+    component: html
   },
   {
     path: '/Page',
@@ -51,7 +61,7 @@ export const fixedRouter  = [
         path: '/page/tableFirst2',
         component: First2,
         meta: {
-          title: '一级2', //菜单名称
+          title: '动态组件', //菜单名称
           /*  roles: ['user', 'admin'], //当前菜单哪些角色可以看到*/
           icon: 'el-icon-info' //菜单左侧的icon图标
         },
@@ -87,11 +97,38 @@ export const fixedRouter  = [
         path: '/page/tableFirst2-2',
         component: First22,
         meta: {
-          title: '二级2-2', //菜单名称
+          title: '无限scroll', //菜单名称
           /*  roles: ['user', 'admin'], //当前菜单哪些角色可以看到*/
           icon: 'el-icon-info' //菜单左侧的icon图标
         }
       },
+      {
+        path: '/page/baiduMap',
+        component: baiduMap,
+        meta: {
+          title: '百度地图', //菜单名称
+          roles: ['user', 'admin'], //当前菜单哪些角色可以看到
+          icon: 'el-icon-star-on' //菜单左侧的icon图标
+        },
+      },
+      {
+        path: '/page/zdmStyle',
+        component: zdmStyle,
+        meta: {
+          title: '字典码样式', //菜单名称
+          roles: ['user', 'admin'], //当前菜单哪些角色可以看到
+          icon: 'el-icon-star-on' //菜单左侧的icon图标
+        },
+      },
+      {
+        path: '/page/threeJs',
+        component: threeJs,
+        meta: {
+          title: 'threeJs', //菜单名称
+          roles: ['user', 'admin'], //当前菜单哪些角色可以看到
+          icon: 'el-icon-star-on' //菜单左侧的icon图标
+        },
+      }
 
     ]
   },

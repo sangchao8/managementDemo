@@ -38,7 +38,7 @@ module.exports = {
     },
     // 打包时不生成.map文件 避免看到源码
     productionSourceMap: false,
-   /* configureWebpack: {
+    /*configureWebpack: {
         resolve: {
             alias: {
                 'assets': '@/assets',

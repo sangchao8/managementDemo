@@ -40,12 +40,12 @@
                     {
                         path: '/page',
                         name:'page',
-                        meta: { "title": "菜单", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                        meta: { "title": "基础表格布局菜单", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
                         children: [
                             {
                                 path: '/page/tableFirst',
                                 meta: {
-                                    title: '一级1', //菜单名称
+                                    title: '表单相关', //菜单名称
                                     roles: ['user', 'admin'], //当前菜单哪些角色可以看到
                                     icon: 'iconfont icon-shangjiantou' //菜单左侧的icon图标
                                 },
@@ -81,7 +81,7 @@
                             {
                                 path: '/page/tableFirst2',
                                 meta: {
-                                    title: '一级2', //菜单名称
+                                    title: '动态组件', //菜单名称
                                       roles: ['user', 'admin'], //当前菜单哪些角色可以看到
                                     icon: 'el-icon-star-on' //菜单左侧的icon图标
                                 },
@@ -91,12 +91,12 @@
                     {
                         path: '',
                         name:'page',
-                        meta: { "title": "菜单2", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                        meta: { "title": "可视化", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
                         children: [
                             {
                                 path: '/page/tableFirst2-1',
                                 meta: {
-                                    title: '一级2-1', //菜单名称
+                                    title: 'div拖拽缩放', //菜单名称
                                     roles: ['user', 'admin'], //当前菜单哪些角色可以看到
                                     icon: 'el-icon-star-on' //菜单左侧的icon图标
                                 },
@@ -104,13 +104,36 @@
                             {
                                 path: '/page/tableFirst2-2',
                                 meta: {
-                                    title: '一级2-2', //菜单名称
+                                    title: '无限scroll', //菜单名称
+                                    roles: ['user', 'admin'], //当前菜单哪些角色可以看到
+                                    icon: 'el-icon-star-on' //菜单左侧的icon图标
+                                },
+                            },
+                            {
+                                path: '/page/baiduMap',
+                                meta: {
+                                    title: '百度地图', //菜单名称
                                     roles: ['user', 'admin'], //当前菜单哪些角色可以看到
                                     icon: 'el-icon-star-on' //菜单左侧的icon图标
                                 },
                             }
                         ]
                     },
+                    {
+                        path: '/page',
+                        children: [
+                            {
+                                path: '/page/zdmStyle',
+                                meta: { "title": "样式字典码", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                            },
+                            {
+                                path: '/page/threeJs',
+                                meta: { "title": "threeJs", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                            },
+                        ]
+
+                    }
+
                 ]
             }
         },

@@ -16,7 +16,7 @@
         </el-form-item>
         <el-form-item  size="small" label="违法时间" >
           <el-date-picker
-                  style="width:26vw"
+                  style="width:25vw"
                   clearable
                   v-model="filler.time"
                   type="datetimerange"
@@ -33,6 +33,15 @@
         </el-form-item>
       </el-form>
       <!--表格-->
+      <!--导出-->
+      <el-button
+              style="margin:1vh 0"
+              type="primary"
+              icon="el-icon-tickets"
+              size="mini"
+              @click="exportFunc"
+      >导出</el-button
+      >
       <!--注意 序号 slot-scope -->
       <div class="table-col">
         <el-table
@@ -62,16 +71,16 @@
                   :show-overflow-tooltip="true"
                   label="卡口名称">
           </el-table-column>
-          <el-table-column
+       <!--   <el-table-column
                   prop="lkxxcc"
                   :show-overflow-tooltip="true"
                   label="路口名称">
-          </el-table-column>
-          <el-table-column
+          </el-table-column>-->
+    <!--      <el-table-column
                   prop="fxbhName"
                   :show-overflow-tooltip="true"
                   label="方向">
-          </el-table-column>
+          </el-table-column>-->
           <el-table-column
                   prop="todayIllegalcar"
                   :show-overflow-tooltip="true"
@@ -106,6 +115,8 @@
             <template slot-scope="{$index, row}">
               <span class="actions" @click="handleXx($index, row)">查看详情</span>
               <span class="actions" @click="edithandle($index, row)">编辑</span>
+              <a class="actions" :href="row.smsPic" target="_blank">预览照片</a> <!--smsPic照片地址-->
+              <a class="actions" @click="downP($index, row)">下载照片</a>
             </template>
           </el-table-column>
         </el-table>
@@ -287,10 +298,10 @@ export default {
     },
     //查询
     onSubmit(){
-     /* if(this.filler.time){
-        this.filler.startTime=this.$api.commenApi.formatTime(this.filler.time[0])
-        this.filler.endTime=this.$api.commenApi.formatTime(this.filler.time[1])
-      }*/
+      if(this.filler.time){
+        this.filler.startTime=this.$api.commonApi.formatTime(this.filler.time[0])
+        this.filler.endTime=this.$api.commonApi.formatTime(this.filler.time[1])
+      }
      /* this.getException()*//* this.getException()*/
     },
     reserve(){
@@ -329,6 +340,7 @@ export default {
       this.dialogFormVisible=true
       this.title='编辑'
     },
+
     /*
     * 文件上传
     * */
@@ -336,6 +348,90 @@ export default {
       this.fil.fileId=response.result.file.id
       // 上传成功要处理的事
     },
+
+    /*
+    * 图片下载--跨域下载，后台做nagix代理
+    * */
+    downP($index, row){
+      let that = this;
+      let hreLocal="";
+      hreLocal = row.smsPic;   //图片地址
+      that.downloadByBlob(hreLocal,row.smsName)   //smsName图片名
+      /*  let a = document.createElement('a')
+        /!*let nameold=row.smsPic.split('/')[2]
+        let name=nameold.substring(0, nameold.lastIndexOf('.'))
+        console.log(name)*!/
+        a.download = row.smsName
+        // 设置图片地址
+        a.href = row.smsPic;
+        a.click();*/
+    },
+    downloadByBlob(url,name) {
+      let image = new Image()
+      let that=this
+      image.setAttribute('crossOrigin', 'anonymous')
+      image.src = url
+      image.onload = () => {
+        let canvas = document.createElement('canvas')
+        canvas.width = image.width
+        canvas.height = image.height
+        let ctx = canvas.getContext('2d')
+        ctx.drawImage(image, 0, 0, image.width, image.height)
+        canvas.toBlob((blob) => {
+          let url = URL.createObjectURL(blob)
+          that.download(url,name)
+          // 用完释放URL对象
+          URL.revokeObjectURL(url)
+        })
+      }
+    },
+    download(href, name) {
+      let eleLink = document.createElement('a')
+      eleLink.download = name
+      eleLink.href = href
+      eleLink.click()
+      eleLink.remove()
+    },
+
+    /*
+    * 导出表单
+    * */
+    exportFunc () {
+      this.$axios({
+        url: '/gosits/web/dispatch/billSearch/ExcelDownload',
+        method: 'post',
+        data: {
+          ...this.formData,
+          ...this.searchObj,
+          defaultQuery: defaultQuery,
+          pageNo: 0,
+          pageSize: 999999,
+          timeOne: this.formData.searchTime[0]
+                  ? `${this.formData.searchTime[0]} 00:00:00`
+                  : '',
+          timeTwo: this.formData.searchTime[1]
+                  ? `${this.formData.searchTime[1]} 23:59:59`
+                  : ''
+        },
+        responseType: 'blob'
+      }).then(res => {
+        if (res) this.dealBlobFile(res)
+      })
+    },
+    dealBlobFile (file) {
+      const link = document.createElement('a')
+      var blob = new Blob([file], {
+        type: 'application/msexcel;charset=utf-8'
+      })
+      link.style.display = 'none'
+      link.href = URL.createObjectURL(blob)
+
+      link.download = '故障单列表.xlsx'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+
   },
 }
 
