@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 module.exports = {
    /* assetsDir:'assets',
     lintOnSave:false,*/
@@ -48,15 +49,21 @@ module.exports = {
         }
     },*/
     // 部署优化
-   /* configureWebpack: {
+    configureWebpack: {
         // GZIP压缩
         plugins: [
-            new CompressionPlugin({
+        /*    new CompressionPlugin({
                 test: /\.js$|\.html$|\.css/, // 匹配文件
                 threshold: 10240 // 对超过10k文件压缩
+            }),*/
+            new webpack.ProvidePlugin({
+                $: "jquery",
+
+                jQuery: "jquery",
+                "windows.jQuery": "jquery"
             })
         ]
-    },*/
+    },
     //插件配置
     pluginOptions: {
         //less预处理器

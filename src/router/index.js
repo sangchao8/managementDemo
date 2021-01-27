@@ -17,6 +17,13 @@ const First21= () => import('@/views/Page/tableFirst2-1')
 const First22= () => import('@/views/Page/tableFirst2-2')
 const baiduMap= () => import('@/views/Page/baiduMap')
 const zdmStyle= () => import('@/views/Page/zdmStyle')
+//3d模型
+const threeJs = () => import('@/views/threeJs')
+const level01 = () => import('@/views/level01')
+const level02 = () => import('@/views/level02')
+const house = () => import('@/views/house')
+
+
 
 
 
@@ -122,7 +129,26 @@ export const fixedRouter  = [
 
     ]
   },
-
+  {
+    path: '/threeJs',
+    name: 'threeJs',
+    component: threeJs,
+  },
+  {
+    path: '/level01',
+    name: 'level01',
+    component: level01,
+  },
+  {
+    path: '/level02',
+    name: 'level02',
+    component: level02,
+  },
+  {
+    path: '/house',
+    name: 'house',
+    component: house,
+  },
 ]
 
 // 需要权限判断展示的路由
