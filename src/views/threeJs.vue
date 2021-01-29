@@ -18,34 +18,40 @@
    /* import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
     import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'*/
     import { OBJLoader, MTLLoader } from "three-obj-mtl-loader";
+/*    import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'*/
 
     import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass';
     import { CSS3DRenderer,CSS3DObject } from "three/examples/jsm/renderers/CSS3DRenderer";
-    import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
     export default {
             data() {
                 return {
+                    scene:null,
+                    camera:null,
+                    renderer:null,
+                    stats:null,
+                    composer:null,
+                    outlinePass:null,
+                    objects:[],//场景中所有对象的集合
                     publicPath: process.env.BASE_URL, // public地址
                     posx:require('@/assets/img/sky/px.jpg'),
                     negx:require('@/assets/img/sky/nx.jpg'),
                     posy:require('@/assets/img/sky/py.jpg'),
                     negy:require('@/assets/img/sky/ny.jpg'),
                     posz:require('@/assets/img/sky/pz.jpg'),
-                    negz:require('@/assets/img/sky/nz.jpg')
+                    negz:require('@/assets/img/sky/nz.jpg'),
+                    clickstate:false,
                 };
             },
             mounted() {
-                console.log ( $ )
-                this.scene
+               /* this.scene
                 this.camera
                 this.renderer
                 this.stats
                 this.composer
                 this.outlinePass
-                this.objects = []//场景中所有对象的集合
+                this.objects = []//场景中所有对象的集合*/
                 this.initMain()
                 this.animate();
-                console.log(new THREE.OBJLoader())
 
             },
             methods: {
@@ -58,7 +64,7 @@
                     this.initTile();//灵动标签标题
                     this.initAgvCar();//小车
                     this.initOrbitControl();
-                    this.initStats();
+                    //this.initStats();
                     this.initLight();
                     this.initAxisHelper();
                     this.initoutLine();
@@ -143,21 +149,37 @@
                  * 向场景中添加小车
                  */
                 initAgvCar(){
-                    debugger
                     let that=this
-                    var OBJLoader = new OBJLoader();//obj加载器
-                    var MTLLoader = new MTLLoader();//材质文件加载器
-                    MTLLoader.load('/models/AGV.mtl', function(materials) {
+                    var OBJLoader1 = new OBJLoader();//obj加载器
+                    var MTLLoader1 = new MTLLoader();//材质文件加载器
+                    MTLLoader1.load(`/models/test.mtl`, function(materials) {
                         // 返回一个包含材质的对象MaterialCreator
                         console.log(materials); //obj的模型会和MaterialCreator包含的材质对应起来
-                        OBJLoader.setMaterials(materials);
-                        OBJLoader.load('/models/AGV.obj', function(obj) {
+                        OBJLoader1.setMaterials(materials);
+                        OBJLoader1.load(`/models/test.obj`, function(obj) {
                             console.log(obj);
-                            obj.scale.set(10, 10, 10); //放大obj组对象
+                            let mesh = obj;
+                            mesh.position.x= 800,
+                            mesh.position.y= 300,
+                            mesh.position.z= 200,
+                          /*  mesh.rotation.y+=90
+                            mesh.rotation.x+=45*/
+                            mesh.scale.set(0.5, 0.5, 0.5); //放大obj组对象
                             that.addObject(obj);//返回的组对象插入场景中
                         })
                     })
                 },
+              /*  initAgvCar(){
+                    let that=this
+                    var loader = new THREE.FBXLoader();//创建一个FBX加载器
+                    loader.load("/models/jp.fbx", function(obj) {
+                        // console.log(obj);//查看加载后返回的模型对象
+                    that.addObject(obj) // 适当平移fbx模型位置
+                      /!*   obj.translateY(-80); })*!/
+                    })
+                },*/
+
+
 
                 /**
                  * 向场景中添加墙体
@@ -491,7 +513,6 @@
                  */
                 addSkybox () {
                     let that=this
-                    debugger
                     let urls = [that.posx, that.negx, that.posy, that.negy, that.posz, that.negz];
                     let skyboxCubemap = new THREE.CubeTextureLoader().load(urls);
                     skyboxCubemap.format = THREE.RGBFormat;
@@ -516,7 +537,9 @@
                  * 向场景中添加物体，并记录到
                  */
                 addObject (object) {
-                    this.scene.add(object);
+                    if(this.scene){
+                        this.scene.add(object);
+                    }
                     this.objects.push(object);
                 },
 
@@ -632,6 +655,7 @@
                      window.addEventListener('dblclick', onMouseDbClick);
 
                     function onMouseClick(event) {
+                        that.clickstate=true
                         var x, y;
                         x = event.clientX;
                         y = event.clientY;
@@ -672,6 +696,11 @@
                                  console.log("点击了地面")
                                  selectedObjects.pop();
                                  $("#label").attr("style", "display:none;");// 隐藏说明性标签
+                                 if(intersects[0].object.name=="冰块"){
+                                     selectedObjects.splice(0, selectedObjects.length)
+                                     selectedObjects.push(intersects[0].object);
+                                     outlinePass.selectedObjects = selectedObjects;//给选中的线条和物体加发光特效
+                                 }
                              }
                          }
                     }
@@ -772,13 +801,21 @@
                  */
                 animate () {
                     requestAnimationFrame(this.animate);
-                    this.initTile()
-                    this.stats.update();
-                    this.orbitControl.update();
-                    this.renderer.render(this.scene, this.camera);
-                    this.composer.render();
+                    //this.initTile()
+                   // this.stats.update();
+                    if(this.scene&& this.camera){
+                        this.renderer.render(this.scene, this.camera);
+                    }
+                    if(this.clickstate){
+                        this.orbitControl.update();
+                        this.composer.render();
+                    }
+
                 }
-            }
+            },
+            destroyed() {
+                this.scene.remove()
+        }
         };
 </script>
 
