@@ -21,6 +21,13 @@
         name: "level01",
         data() {
             return {
+                scene:null,
+                camera:null,
+                renderer:null,
+                stats:null,
+                composer:null,
+                outlinePass:null,
+                objects:[],//场景中所有对象的集合
                 posx:require('@/assets/img/sky/px.jpg'),
                 negx:require('@/assets/img/sky/nx.jpg'),
                 posy:require('@/assets/img/sky/py.jpg'),
@@ -29,19 +36,13 @@
                 negz:require('@/assets/img/sky/nz.jpg'),
                 pointLight1:null,
                 video:require('@/assets/video/1.mp4'),
-                clickstate:false
+                clickstate:false,
+                animatestop:null
             };
         },
         mounted() {
-            this.scene
-            this.camera
-            this.renderer
-            this.stats
-            this.composer
-            this.outlinePass
-            this.objects = []//场景中所有对象的集合
             this.initMain()
-            this.animate();
+            this.animatestop =this.animate();
         },
         methods: {
             initMain(){
@@ -1523,6 +1524,7 @@
         },
         destroyed() {
             this.scene.remove()
+            window.cancelAnimationFrame(this.animatestop);
         }
     }
 </script>

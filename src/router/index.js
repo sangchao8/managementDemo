@@ -17,10 +17,14 @@ const First21= () => import('@/views/Page/tableFirst2-1')
 const First22= () => import('@/views/Page/tableFirst2-2')
 const baiduMap= () => import('@/views/Page/baiduMap')
 const zdmStyle= () => import('@/views/Page/zdmStyle')
+const fullScreen= () => import('@/views/Page/fullScreen')
+const passValue= () => import('@/views/Page/passValue')
+const storeValue= () => import('@/views/Page/storeValue')
 //3d模型
 const threeJs = () => import('@/views/threeJs')
 const level01 = () => import('@/views/level01')
 const level02 = () => import('@/views/level02')
+const level03 = () => import('@/views/level03')
 const house = () => import('@/views/house')
 
 
@@ -125,7 +129,22 @@ export const fixedRouter  = [
           roles: ['user', 'admin'], //当前菜单哪些角色可以看到
           icon: 'el-icon-star-on' //菜单左侧的icon图标
         },
-      }
+      },
+      {
+        path: '/page/fullScreen',
+        name: 'fullScreen',
+        component: fullScreen,
+      },
+      {
+        path: '/page/passValue',
+        name: 'passValue',
+        component: passValue,
+      },
+      {
+        path: '/page/storeValue',
+        name: 'storeValue',
+        component: storeValue,
+      },
 
     ]
   },
@@ -143,6 +162,11 @@ export const fixedRouter  = [
     path: '/level02',
     name: 'level02',
     component: level02,
+  },
+  {
+    path: '/level03',
+    name: 'level03',
+    component: level03,
   },
   {
     path: '/house',

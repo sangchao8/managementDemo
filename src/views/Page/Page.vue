@@ -14,8 +14,11 @@
                 </div>
             </div>
             <!--菜单内容-->
+
             <div class="rightSide">
-               <router-view />
+                <keep-alive exclude="passValue"><!--  在组件页面中声明 name 属性,export default里面的name-->
+                    <router-view />
+                </keep-alive>
             </div>
         </div>
 
@@ -38,7 +41,7 @@
                                 "meta": { "title": "首页", "roles": [ "user", "admin" ], "icon": "el-icon-s-home" } } ]
                     },
                     {
-                        path: '/page',
+                        path: '/1',
                         name:'page',
                         meta: { "title": "基础表格布局菜单", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
                         children: [
@@ -89,7 +92,7 @@
                         ]
                     },
                     {
-                        path: '',
+                        path: '/2',
                         name:'page',
                         meta: { "title": "可视化", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
                         children: [
@@ -127,8 +130,31 @@
                                 meta: { "title": "样式字典码", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
                             },
                         ]
-
-                    }
+                    },
+                    {
+                        path: '/page',
+                        children: [
+                            {
+                                path: '/page/fullScreen',
+                                meta: { "title": "全屏页面路径", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                            },
+                        ]
+                    },
+                    {
+                        path: '/3',
+                        name:'page',
+                        meta: { "title": "传值", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                        children: [
+                            {
+                                path: '/page/passValue',
+                                meta: { "title": "父子传值", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                            },
+                            {
+                                path: '/page/storeValue',
+                                meta: { "title": "store传值", "icon": "el-icon-menu", "roles": [ "admin", "user" ] },
+                            },
+                        ]
+                    },
 
                 ]
             }

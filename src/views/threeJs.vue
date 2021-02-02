@@ -40,18 +40,12 @@
                     posz:require('@/assets/img/sky/pz.jpg'),
                     negz:require('@/assets/img/sky/nz.jpg'),
                     clickstate:false,
+                    animatestop:null
                 };
             },
             mounted() {
-               /* this.scene
-                this.camera
-                this.renderer
-                this.stats
-                this.composer
-                this.outlinePass
-                this.objects = []//场景中所有对象的集合*/
                 this.initMain()
-                this.animate();
+                this.animatestop =this.animate();
 
             },
             methods: {
@@ -815,6 +809,7 @@
             },
             destroyed() {
                 this.scene.remove()
+                window.cancelAnimationFrame(this.animatestop);
         }
         };
 </script>

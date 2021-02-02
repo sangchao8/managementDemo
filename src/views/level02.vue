@@ -38,11 +38,12 @@
                 negz:require('@/assets/img/sky/nz.jpg'),
                 pointLight:[],//点光源，灯的集合
                 clickstate:false,
+                animatestop:null
             };
         },
         mounted() {
             this.initMain()
-            this.animate();
+            this.animatestop =this.animate();
         },
         methods: {
             initMain(){
@@ -1628,6 +1629,7 @@
         },
         destroyed() {
             this.scene.remove()
+            window.cancelAnimationFrame(this.animatestop);//可以取消该次动画。
         }
     }
 </script>
